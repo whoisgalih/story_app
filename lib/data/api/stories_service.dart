@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:story_app/commons/RequestError.dart';
+import 'package:story_app/commons/request_exception_error.dart';
 import 'package:story_app/model/story.dart';
 
 import 'api_service.dart';
@@ -69,7 +69,6 @@ class StoriesService extends APIService {
     final http.StreamedResponse response = await client.send(request);
 
     final String responseString = await response.stream.bytesToString();
-    print(responseString);
 
     final Map<String, dynamic> responseJson = jsonDecode(responseString);
 

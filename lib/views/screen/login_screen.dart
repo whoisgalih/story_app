@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           }
                         },
-                        child: Text(
+                        child: const Text(
                           "LOGIN",
                         ),
                       ),
@@ -121,11 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 /// todo 19: update the function when button is tapped.
                 OutlinedButton(
                   onPressed: () => widget.onRegister(),
-                  child: const Text(
-                    "REGISTER",
-                  ),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: primaryColor[950],
+                  ),
+                  child: const Text(
+                    "REGISTER",
                   ),
                 ),
               ],

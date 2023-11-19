@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:story_app/commons/RequestError.dart';
+import 'package:story_app/commons/request_exception_error.dart';
 import 'package:story_app/provider/add_story_provider.dart';
 import 'package:story_app/themes/colors.dart';
 
@@ -74,13 +74,13 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                                       borderRadius: BorderRadius.circular(8)),
                                   child: Container(
                                     alignment: Alignment.center,
-                                    padding: EdgeInsets.all(32),
-                                    child: Text("Gallery"),
+                                    padding: const EdgeInsets.all(32),
+                                    child: const Text("Gallery"),
                                   ),
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 16,
                             ),
                             Expanded(
@@ -93,8 +93,8 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                                       borderRadius: BorderRadius.circular(8)),
                                   child: Container(
                                     alignment: Alignment.center,
-                                    padding: EdgeInsets.all(32),
-                                    child: Text("Camera"),
+                                    padding: const EdgeInsets.all(32),
+                                    child: const Text("Camera"),
                                   ),
                                 ),
                               ),

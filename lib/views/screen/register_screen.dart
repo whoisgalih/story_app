@@ -118,10 +118,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 8),
                 OutlinedButton(
                   onPressed: () => widget.onLogin(),
-                  child: const Text("LOGIN"),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: primaryColor[950],
                   ),
+                  child: const Text("LOGIN"),
                 ),
               ],
             ),

@@ -1,4 +1,4 @@
-import 'package:story_app/commons/RequestError.dart';
+import 'package:story_app/commons/request_exception_error.dart';
 import 'package:story_app/data/api/auth_service.dart';
 import 'package:story_app/data/db/auth_repository.dart';
 import 'package:flutter/material.dart';

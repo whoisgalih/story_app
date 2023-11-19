@@ -61,7 +61,7 @@ class _StoryListScreenState extends State<StoryListScreen> {
         onPressed: () {
           widget.onAddStory();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

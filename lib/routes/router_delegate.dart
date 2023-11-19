@@ -161,7 +161,7 @@ class MyRouterDelegate extends RouterDelegate
                 storiesService,
                 selectedStory!,
               ),
-              child: StoryDetailsScreen(),
+              child: const StoryDetailsScreen(),
             ),
           ),
         if (isAddStory)

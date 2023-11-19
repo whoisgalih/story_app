@@ -17,7 +17,7 @@ class StoryDetailsScreen extends StatelessWidget {
             : storyProvider.story!.name!),
       ),
       body: storyProvider.isLoadingStory
-          ? CircularProgressIndicator()
+          ? const CircularProgressIndicator()
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
@@ -39,12 +39,12 @@ class StoryDetailsScreen extends StatelessWidget {
                       height: 16,
                     ),
                     Text(storyProvider.story!.name!,
-                        style: Theme.of(context).textTheme.headline6),
+                        style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(
                       height: 8,
                     ),
                     Text(storyProvider.story!.description,
-                        style: Theme.of(context).textTheme.subtitle1),
+                        style: Theme.of(context).textTheme.titleMedium),
                   ],
                 ),
               ),
