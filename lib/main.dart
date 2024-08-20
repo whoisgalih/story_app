@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/data/api/auth_service.dart';
@@ -40,16 +43,10 @@ final StoriesService storiesService = StoriesService(client: client);
 class _MyAppState extends State<MyApp> {
   /// todo 6: add variable for create instance
   late MyRouterDelegate myRouterDelegate;
-  // late AuthProvider authProvider;
 
   @override
   void initState() {
     super.initState();
-    // final authRepository = AuthRepository();
-
-    // authProvider = AuthProvider(authRepository, authService);
-
-    /// todo 7: inject auth to router delegate
     myRouterDelegate = MyRouterDelegate();
   }
 
@@ -59,7 +56,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(
           create: (context) => StoriesProvider(
-            storiesService,
+            storiesService: storiesService,
           ),
         ),
         ChangeNotifierProvider(
@@ -70,11 +67,26 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         title: 'Story App',
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('id', ''),
+          Locale('en', ''),
+        ],
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: primaryColor,
             accentColor: accentColor,
             brightness: Brightness.light,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: accentColor,
+            ),
           ),
           scaffoldBackgroundColor: primaryColor[50],
           visualDensity: VisualDensity.adaptivePlatformDensity,

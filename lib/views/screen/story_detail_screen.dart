@@ -16,39 +16,47 @@ class StoryDetailsScreen extends StatelessWidget {
             ? 'Loading...'
             : storyProvider.story!.name!),
       ),
-      body: storyProvider.isLoadingStory
-          ? const CircularProgressIndicator()
-          : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Image.network(
-                        storyProvider.story!.photoUrl,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
+      body: !storyProvider.isLoadingStory && storyProvider.story == null
+          ? const Center(
+              child: Text("Error occuured"),
+            )
+          : storyProvider.isLoadingStory
+              ? Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(16),
+                  child: const CircularProgressIndicator(),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Image.network(
+                            storyProvider.story!.photoUrl,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(storyProvider.story!.name!,
+                            style: Theme.of(context).textTheme.titleLarge),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(storyProvider.story!.description,
+                            style: Theme.of(context).textTheme.titleMedium),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(storyProvider.story!.name!,
-                        style: Theme.of(context).textTheme.titleLarge),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(storyProvider.story!.description,
-                        style: Theme.of(context).textTheme.titleMedium),
-                  ],
+                  ),
                 ),
-              ),
-            ),
     );
   }
 }

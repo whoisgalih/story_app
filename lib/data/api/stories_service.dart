@@ -10,9 +10,16 @@ import 'api_service.dart';
 class StoriesService extends APIService {
   StoriesService({required super.client});
 
-  Future<List<Story>> getStories(String token) async {
+  Future<List<Story>> getStories(String token, String page, String size) async {
     final http.Response response = await client.get(
-      Uri.parse('${APIService.baseUrl}/stories'),
+      Uri.https(
+        'story-api.dicoding.dev',
+        '/v1/stories',
+        {
+          'page': page,
+          'size': size,
+        },
+      ),
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer $token',
       },

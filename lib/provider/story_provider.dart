@@ -21,6 +21,12 @@ class StoryProvider extends ChangeNotifier {
     final String token = await AuthRepository.getToken();
     story = await storiesService.getStoryById(token, id);
 
+    if (story == null) {
+      isLoadingStory = false;
+      notifyListeners();
+      return false;
+    }
+
     isLoadingStory = false;
     notifyListeners();
 
