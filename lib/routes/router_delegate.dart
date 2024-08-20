@@ -1,7 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:story_app/main.dart';
 import 'package:story_app/provider/add_story_provider.dart';
-import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/provider/story_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -16,23 +15,24 @@ import 'package:story_app/views/screen/story_list_screen.dart';
 class MyRouterDelegate extends RouterDelegate
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   final GlobalKey<NavigatorState> _navigatorKey;
-  final AuthRepository authRepository;
+  // final AuthRepository authRepository;
 
-  late StoriesProvider storiesProvider;
+  // late StoriesProvider storiesProvider;
 
   MyRouterDelegate(
-    this.authRepository,
-  ) : _navigatorKey = GlobalKey<NavigatorState>() {
+      // this.authRepository,
+      )
+      : _navigatorKey = GlobalKey<NavigatorState>() {
     /// todo 9: create initial function to check user logged in.
     _init();
-    storiesProvider = StoriesProvider(
-      authRepository,
-      storiesService,
-    );
+    // storiesProvider = StoriesProvider(
+    //   authRepository,
+    //   storiesService,
+    // );
   }
 
   _init() async {
-    isLoggedIn = await authRepository.isLoggedIn();
+    isLoggedIn = await AuthRepository.isLoggedIn();
 
     notifyListeners();
   }
@@ -69,9 +69,9 @@ class MyRouterDelegate extends RouterDelegate
           return false;
         }
 
-        if (isLoggedIn == true) {
-          storiesProvider.getStories();
-        }
+        // if (isLoggedIn == true) {
+        //   storiesProvider.getStories();
+        // }
 
         isRegister = false;
         selectedStory = null;
@@ -130,26 +130,23 @@ class MyRouterDelegate extends RouterDelegate
   List<Page> get _loggedInStack => [
         MaterialPage(
           key: const ValueKey("StoryListPage"),
-          child: ChangeNotifierProvider(
-            create: (context) => storiesProvider,
-            child: StoryListScreen(
-              onTapped: (String quoteId) {
-                selectedStory = quoteId;
-                notifyListeners();
-              },
+          child: StoryListScreen(
+            onTapped: (String quoteId) {
+              selectedStory = quoteId;
+              notifyListeners();
+            },
 
-              /// todo 21: add onLogout method to update the state and
-              /// create a logout button
-              onLogout: () {
-                isLoggedIn = false;
-                notifyListeners();
-              },
+            /// todo 21: add onLogout method to update the state and
+            /// create a logout button
+            onLogout: () {
+              isLoggedIn = false;
+              notifyListeners();
+            },
 
-              onAddStory: () {
-                isAddStory = true;
-                notifyListeners();
-              },
-            ),
+            onAddStory: () {
+              isAddStory = true;
+              notifyListeners();
+            },
           ),
         ),
         if (selectedStory != null)
@@ -157,7 +154,6 @@ class MyRouterDelegate extends RouterDelegate
             key: ValueKey(selectedStory),
             child: ChangeNotifierProvider(
               create: (context) => StoryProvider(
-                authRepository,
                 storiesService,
                 selectedStory!,
               ),
@@ -169,7 +165,6 @@ class MyRouterDelegate extends RouterDelegate
             key: const ValueKey("AddStoryPage"),
             child: ChangeNotifierProvider(
               create: (context) => AddStoryProvider(
-                authRepository: authRepository,
                 storiesService: storiesService,
               ),
               child: AddStoryScreen(

@@ -44,17 +44,19 @@ class _StoryListScreenState extends State<StoryListScreen> {
         ],
       ),
       body: Consumer(
-          builder: (BuildContext context, StoriesProvider storiesProvider, _) {
-        return ListView(
-          children: [
-            for (Story story in storiesProvider.stories)
-              GestureDetector(
-                onTap: () => widget.onTapped(story.id!),
-                child: StoryCard(story: story),
-              )
-          ],
-        );
-      }),
+        builder: (BuildContext context, StoriesProvider storiesProvider, _) {
+          return ListView(
+            controller: ScrollController(),
+            children: [
+              for (Story story in storiesProvider.stories)
+                GestureDetector(
+                  onTap: () => widget.onTapped(story.id!),
+                  child: StoryCard(story: story),
+                )
+            ],
+          );
+        },
+      ),
 
       /// todo 18: add FAB and update the UI when button is tapped.
       floatingActionButton: FloatingActionButton(

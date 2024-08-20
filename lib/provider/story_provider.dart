@@ -4,11 +4,10 @@ import 'package:story_app/data/db/auth_repository.dart';
 import 'package:story_app/model/story.dart';
 
 class StoryProvider extends ChangeNotifier {
-  final AuthRepository authRepository;
   final StoriesService storiesService;
   final String id;
 
-  StoryProvider(this.authRepository, this.storiesService, this.id) {
+  StoryProvider(this.storiesService, this.id) {
     getStoryById();
   }
 
@@ -19,7 +18,7 @@ class StoryProvider extends ChangeNotifier {
     isLoadingStory = true;
     notifyListeners();
 
-    final String token = await authRepository.getToken();
+    final String token = await AuthRepository.getToken();
     story = await storiesService.getStoryById(token, id);
 
     isLoadingStory = false;

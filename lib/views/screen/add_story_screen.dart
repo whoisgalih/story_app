@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/commons/request_exception_error.dart';
 import 'package:story_app/provider/add_story_provider.dart';
+import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/themes/colors.dart';
 
 class AddStoryScreen extends StatefulWidget {
@@ -136,9 +137,13 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           try {
+            addStoryProvider.setLoading(true);
             addStoryProvider.addStory();
+            StoriesProvider storiesProvider = context.read<StoriesProvider>();
+            await storiesProvider.getStories();
+            addStoryProvider.setLoading(false);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text("Story added"),
@@ -153,7 +158,13 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
             );
           }
         },
-        child: const Icon(Icons.upload),
+        child: Consumer<AddStoryProvider>(
+          builder: (context, addStoryProvider, _) {
+            return addStoryProvider.isLoading
+                ? const CircularProgressIndicator()
+                : const Icon(Icons.upload);
+          },
+        ),
       ),
     );
   }

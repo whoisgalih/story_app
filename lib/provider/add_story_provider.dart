@@ -8,7 +8,8 @@ import 'package:story_app/model/story.dart';
 
 class AddStoryProvider extends ChangeNotifier {
   final StoriesService storiesService;
-  final AuthRepository authRepository;
+
+  bool _isLoading = false;
 
   final GlobalKey<FormState> addStoryGlobalKey = GlobalKey<FormState>();
   final TextEditingController descriptionController = TextEditingController();
@@ -17,9 +18,16 @@ class AddStoryProvider extends ChangeNotifier {
   XFile? imageFile;
 
   AddStoryProvider({
-    required this.authRepository,
     required this.storiesService,
   });
+
+  // toggle loading
+  bool get isLoading => _isLoading;
+
+  void setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   void setImagePath(String? value) {
     imagePath = value;
@@ -65,7 +73,7 @@ class AddStoryProvider extends ChangeNotifier {
       );
 
       // get token from repo
-      final token = await authRepository.getToken();
+      final token = await AuthRepository.getToken();
 
       await storiesService.addStory(token, story);
     }

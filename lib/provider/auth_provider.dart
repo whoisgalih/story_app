@@ -7,10 +7,9 @@ import '../model/user.dart';
 
 /// todo 5: create Auth Provider to handle auth process
 class AuthProvider extends ChangeNotifier {
-  final AuthRepository authRepository;
   final AuthService authService;
 
-  AuthProvider(this.authRepository, this.authService);
+  AuthProvider(this.authService);
 
   bool isLoadingLogin = false;
   bool isLoadingLogout = false;
@@ -28,8 +27,8 @@ class AuthProvider extends ChangeNotifier {
 
     try {
       final Map<String, dynamic> responseJson = await authService.login(user);
-      await authRepository.setToken(responseJson['loginResult']['token']);
-      isLoggedIn = await authRepository.isLoggedIn();
+      await AuthRepository.setToken(responseJson['loginResult']['token']);
+      isLoggedIn = await AuthRepository.isLoggedIn();
       loginMessage = "Login success";
     } on RequestException catch (e) {
       isLoggedIn = false;
@@ -46,8 +45,8 @@ class AuthProvider extends ChangeNotifier {
     isLoadingLogout = true;
     notifyListeners();
 
-    await authRepository.removeToken();
-    isLoggedIn = await authRepository.isLoggedIn();
+    await AuthRepository.removeToken();
+    isLoggedIn = await AuthRepository.isLoggedIn();
 
     isLoadingLogout = false;
     notifyListeners();

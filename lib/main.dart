@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/data/api/auth_service.dart';
 import 'package:story_app/data/api/stories_service.dart';
-import 'package:story_app/data/db/auth_repository.dart';
 import 'package:story_app/provider/auth_provider.dart';
+import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/routes/router_delegate.dart';
 
 import 'package:http/http.dart' as http;
@@ -38,26 +38,36 @@ final AuthService authService = AuthService(client: client);
 final StoriesService storiesService = StoriesService(client: client);
 
 class _MyAppState extends State<MyApp> {
-  late MyRouterDelegate myRouterDelegate;
-
   /// todo 6: add variable for create instance
-  late AuthProvider authProvider;
+  late MyRouterDelegate myRouterDelegate;
+  // late AuthProvider authProvider;
 
   @override
   void initState() {
     super.initState();
-    final authRepository = AuthRepository();
+    // final authRepository = AuthRepository();
 
-    authProvider = AuthProvider(authRepository, authService);
+    // authProvider = AuthProvider(authRepository, authService);
 
     /// todo 7: inject auth to router delegate
-    myRouterDelegate = MyRouterDelegate(authRepository);
+    myRouterDelegate = MyRouterDelegate();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => authProvider,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => StoriesProvider(
+            storiesService,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(
+            authService,
+          ),
+        ),
+      ],
       child: MaterialApp(
         title: 'Story App',
         theme: ThemeData(
