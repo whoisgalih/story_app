@@ -1,4 +1,9 @@
 {
-  "titleApp": "Localization App",
-  "helloWorld": "Hello World!"
+  "login": "Login",
+  "register": "Register",
+  "email": "Email",
+  "pleaseEnterYourEmail": "Please enter your email.",
+  "password": "Password",
+  "pleaseEnterYourPassword": "Please enter your password.",
+  "loginSuccess": "Login success"
 }

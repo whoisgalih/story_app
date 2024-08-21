@@ -74,7 +74,7 @@ class _StoryListScreenState extends State<StoryListScreen> {
     final authWatch = context.watch<AuthProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.titleApp),
+        title: Text("Story"),
         actions: [
           IconButton(
             onPressed: () async {

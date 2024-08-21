@@ -3,6 +3,7 @@ import 'package:story_app/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/themes/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// todo 14: create LoginScreen
 class LoginScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
     AuthProvider authProvider = context.watch<AuthProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Login Screen"),
+        title: Text(AppLocalizations.of(context)!.login),
       ),
       body: Center(
         child: ConstrainedBox(
@@ -60,24 +61,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email.';
+                      return AppLocalizations.of(context)!.pleaseEnterYourEmail;
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(
-                    hintText: "Email",
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.email,
                   ),
                 ),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: "Password",
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.password,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password.';
+                      return AppLocalizations.of(context)!
+                          .pleaseEnterYourPassword;
                     }
                     return null;
                   },
@@ -105,14 +107,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (authProvider.loginMessage.isNotEmpty) {
                               scaffoldMessenger.showSnackBar(
                                 SnackBar(
-                                  content: Text(authProvider.loginMessage),
+                                  content: Text(authProvider.loginMessage == ""
+                                      ? AppLocalizations.of(context)!
+                                          .loginSuccess
+                                      : authProvider.loginMessage),
                                 ),
                               );
                             }
                           }
                         },
-                        child: const Text(
-                          "LOGIN",
+                        child: Text(
+                          AppLocalizations.of(context)!.login,
                         ),
                       ),
 
@@ -124,8 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: primaryColor[950],
                   ),
-                  child: const Text(
-                    "REGISTER",
+                  child: Text(
+                    AppLocalizations.of(context)!.register,
                   ),
                 ),
               ],

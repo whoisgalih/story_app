@@ -1,10 +1,30 @@
 {
-  "titleApp": "Aplikasi Lokalisasi",
-  "@titleApp": {
-    "description": "Deskripsi mengenai variabel titleApp"
+  "login": "Masuk",
+  "@login": {
+    "description": "Menu login"
   },
-  "helloWorld": "Halo Dunia!",
-  "@helloWorld": {
-    "description": "Deskripsi variabel helloWorld"
+  "register": "Daftar",
+  "@register": {
+    "description": "Menu register"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email"
+  },
+  "pleaseEnterYourEmail": "Silakan masukkan email Anda.",
+  "@pleaseEnterYourEmail": {
+    "description": "Silakan masukkan email Anda."
+  },
+  "password": "Kata Sandi",
+  "@password": {
+    "description": "Kata Sandi"
+  },
+  "pleaseEnterYourPassword": "Silakan masukkan kata sandi Anda.",
+  "@pleaseEnterYourPassword": {
+    "description": "Silakan masukkan kata sandi Anda."
+  },
+  "loginSuccess": "Login berhasil",
+  "@loginSuccess": {
+    "description": "Login berhasil"
   }
 }

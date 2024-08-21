@@ -29,7 +29,7 @@ class AuthProvider extends ChangeNotifier {
       final Map<String, dynamic> responseJson = await authService.login(user);
       await AuthRepository.setToken(responseJson['loginResult']['token']);
       isLoggedIn = await AuthRepository.isLoggedIn();
-      loginMessage = "Login success";
+      loginMessage = "";
     } on RequestException catch (e) {
       isLoggedIn = false;
       loginMessage = e.message;
