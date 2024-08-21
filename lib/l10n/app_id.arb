@@ -26,5 +26,65 @@
   "loginSuccess": "Login berhasil",
   "@loginSuccess": {
     "description": "Login berhasil"
+  },
+  "name": "Nama",
+  "@name": {
+    "description": "Nama"
+  },
+  "pleaseEnterYourName": "Silakan masukkan nama Anda.",
+  "@pleaseEnterYourName": {
+    "description": "Silakan masukkan nama Anda."
+  },
+  "registerSuccess": "Daftar berhasil",
+  "@registerSuccess": {
+    "description": "Daftar berhasil"
+  },
+  "story": "Cerita",
+  "@story": {
+    "description": "Cerita"
+  },
+  "loading": "Memuat...",
+  "@loading": {
+    "description": "Memuat..."
+  },
+  "error": "Terjadi kesalahan",
+  "@error": {
+    "description": "Terjadi kesalahan"
+  },
+  "addStory": "Tambah Cerita",
+  "@addStory": {
+    "description": "Tambah Cerita"
+  },
+  "gallery": "Galeri",
+  "@gallery": {
+    "description": "Galeri"
+  },
+  "camera": "Kamera",
+  "@camera": {
+    "description": "Kamera"
+  },
+  "description": "Deskripsi",
+  "@description": {
+    "description": "Deskripsi"
+  },
+  "storyAdded": "Cerita ditambahkan",
+  "@storyAdded": {
+    "description": "Cerita ditambahkan"
+  },
+  "imageMustBeSelected": "Gambar harus dipilih",
+  "@imageMustBeSelected": {
+    "description": "Gambar harus dipilih"
+  },
+  "imageMustBeLessThan1Mb": "Gambar harus kurang dari 1MB",
+  "@imageMustBeLessThan1Mb": {
+    "description": "Gambar harus kurang dari 1MB"
+  },
+  "descriptionMustBeFilled": "Deskripsi harus diisi",
+  "@descriptionMustBeFilled": {
+    "description": "Deskripsi harus diisi"
+  },
+  "logout": "Keluar",
+  "@logout": {
+    "description": "Keluar"
   }
 }

@@ -1,9 +1,24 @@
 {
   "login": "Login",
-  "register": "Register",
   "email": "Email",
   "pleaseEnterYourEmail": "Please enter your email.",
   "password": "Password",
   "pleaseEnterYourPassword": "Please enter your password.",
-  "loginSuccess": "Login success"
+  "loginSuccess": "Login success",
+  "register": "Register",
+  "name": "Name",
+  "pleaseEnterYourName": "Please enter your name.",
+  "registerSuccess": "Register success",
+  "story": "Story",
+  "loading": "Loading...",
+  "error": "Error occurred",
+  "addStory": "Add Story",
+  "gallery": "Gallery",
+  "camera": "Camera",
+  "description": "Description",
+  "storyAdded": "Story added",
+  "imageMustBeSelected": "Image must be selected",
+  "imageMustBeLessThan1Mb": "Image must be less than 1MB",
+  "descriptionMustBeFilled": "Description must be filled",
+  "logout": "Logout"
 }

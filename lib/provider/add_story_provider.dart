@@ -40,23 +40,28 @@ class AddStoryProvider extends ChangeNotifier {
   }
 
   // Validators
-  String? imageValidator() {
+  String? imageValidator({
+    required String mustBeSelected,
+    required String mustBeLessThan1Mb,
+  }) {
     if (imagePath == null) {
-      return "Image must be selected";
+      return mustBeSelected;
     }
 
     // validate image less than 1mb
     File imageFile = File(imagePath!);
     if (imageFile.lengthSync() > 1000000) {
-      return "Image must be less than 1mb";
+      return mustBeLessThan1Mb;
     }
 
     return null;
   }
 
-  String? descriptionValidator() {
+  String? descriptionValidator({
+    required String mustBeFilled,
+  }) {
     if (descriptionController.text.isEmpty) {
-      return "Description must be filled";
+      return mustBeFilled;
     }
 
     return null;

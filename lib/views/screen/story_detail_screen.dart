@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/provider/story_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StoryDetailsScreen extends StatelessWidget {
   const StoryDetailsScreen({
@@ -13,12 +14,12 @@ class StoryDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(storyProvider.isLoadingStory
-            ? 'Loading...'
+            ? AppLocalizations.of(context)!.loading
             : storyProvider.story!.name!),
       ),
       body: !storyProvider.isLoadingStory && storyProvider.story == null
-          ? const Center(
-              child: Text("Error occuured"),
+          ? Center(
+              child: Text(AppLocalizations.of(context)!.error),
             )
           : storyProvider.isLoadingStory
               ? Container(

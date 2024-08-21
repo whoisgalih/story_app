@@ -61,7 +61,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       await authService.register(user);
       isRegistered = true;
-      registerMessage = "Register success";
+      registerMessage = "";
     } on RequestException catch (e) {
       isRegistered = false;
       registerMessage = e.message;

@@ -74,14 +74,14 @@ class _StoryListScreenState extends State<StoryListScreen> {
     final authWatch = context.watch<AuthProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Story"),
+        title: Text(AppLocalizations.of(context)!.story),
         actions: [
           IconButton(
             onPressed: () async {
               final result = await authWatch.logout();
               if (result) widget.onLogout();
             },
-            tooltip: "Logout",
+            tooltip: AppLocalizations.of(context)!.logout,
             icon: authWatch.isLoadingLogout
                 ? const CircularProgressIndicator(
                     color: Colors.white,
@@ -122,16 +122,6 @@ class _StoryListScreenState extends State<StoryListScreen> {
                 );
               },
             ),
-            // child: ListView(
-            //   controller: ScrollController(),
-            //   children: [
-            //     for (Story story in storiesProvider.stories)
-            //       GestureDetector(
-            //         onTap: () => widget.onTapped(story.id!),
-            //         child: StoryCard(story: story),
-            //       )
-            //   ],
-            // ),
           );
         },
       ),

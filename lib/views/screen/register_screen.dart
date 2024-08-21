@@ -3,6 +3,7 @@ import 'package:story_app/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/themes/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreen extends StatefulWidget {
   final Function() onRegister;
@@ -36,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Register Screen"),
+        title: Text(AppLocalizations.of(context)!.register),
       ),
       body: Center(
         child: ConstrainedBox(
@@ -51,12 +52,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: nameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your name.';
+                      return AppLocalizations.of(context)!.pleaseEnterYourName;
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(
-                    hintText: "Name",
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.name,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -64,24 +65,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email.';
+                      return AppLocalizations.of(context)!.pleaseEnterYourEmail;
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(
-                    hintText: "Email",
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.email,
                   ),
                 ),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: "Password",
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.password,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password.';
+                      return AppLocalizations.of(context)!
+                          .pleaseEnterYourPassword;
                     }
                     return null;
                   },
@@ -107,13 +109,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (authRead.registerMessage.isNotEmpty) {
                               scaffoldMessenger.showSnackBar(
                                 SnackBar(
-                                  content: Text(authRead.registerMessage),
+                                  content: Text(authRead.registerMessage == ""
+                                      ? AppLocalizations.of(context)!
+                                          .registerSuccess
+                                      : authRead.registerMessage),
                                 ),
                               );
                             }
                           }
                         },
-                        child: const Text("REGISTER"),
+                        child: Text(AppLocalizations.of(context)!.register),
                       ),
                 const SizedBox(height: 8),
                 OutlinedButton(
@@ -121,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: primaryColor[950],
                   ),
-                  child: const Text("LOGIN"),
+                  child: Text(AppLocalizations.of(context)!.login),
                 ),
               ],
             ),

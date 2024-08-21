@@ -8,6 +8,7 @@ import 'package:story_app/commons/request_exception_error.dart';
 import 'package:story_app/provider/add_story_provider.dart';
 import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/themes/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddStoryScreen extends StatefulWidget {
   final Function() onAddStory;
@@ -24,7 +25,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
     AddStoryProvider addStoryProvider = context.watch<AddStoryProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Story"),
+        title: Text(AppLocalizations.of(context)!.addStory),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -35,7 +36,11 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FormField<XFile>(
-                  validator: (value) => addStoryProvider.imageValidator(),
+                  validator: (value) => addStoryProvider.imageValidator(
+                      mustBeSelected:
+                          AppLocalizations.of(context)!.imageMustBeSelected,
+                      mustBeLessThan1Mb:
+                          AppLocalizations.of(context)!.imageMustBeLessThan1Mb),
                   builder: (formFieldState) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +81,8 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     padding: const EdgeInsets.all(32),
-                                    child: const Text("Gallery"),
+                                    child: Text(
+                                        AppLocalizations.of(context)!.gallery),
                                   ),
                                 ),
                               ),
@@ -95,7 +101,8 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     padding: const EdgeInsets.all(32),
-                                    child: const Text("Camera"),
+                                    child: Text(
+                                        AppLocalizations.of(context)!.camera),
                                   ),
                                 ),
                               ),
@@ -126,10 +133,13 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                   keyboardType: TextInputType.multiline,
                   minLines: 5,
                   maxLines: 10,
-                  decoration: const InputDecoration(
-                    hintText: "Description",
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.description,
                   ),
-                  validator: (value) => addStoryProvider.descriptionValidator(),
+                  validator: (value) => addStoryProvider.descriptionValidator(
+                    mustBeFilled:
+                        AppLocalizations.of(context)!.descriptionMustBeFilled,
+                  ),
                 ),
               ],
             ),
@@ -138,24 +148,28 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          try {
-            addStoryProvider.setLoading(true);
-            addStoryProvider.addStory();
-            StoriesProvider storiesProvider = context.read<StoriesProvider>();
-            await storiesProvider.getStories();
-            addStoryProvider.setLoading(false);
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Story added"),
-              ),
-            );
-            widget.onAddStory();
-          } on RequestException catch (e) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(e.message),
-              ),
-            );
+          if (addStoryProvider.addStoryGlobalKey.currentState!.validate()) {
+            try {
+              // run validation
+
+              addStoryProvider.setLoading(true);
+              addStoryProvider.addStory();
+              StoriesProvider storiesProvider = context.read<StoriesProvider>();
+              await storiesProvider.getStories();
+              addStoryProvider.setLoading(false);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(AppLocalizations.of(context)!.storyAdded),
+                ),
+              );
+              widget.onAddStory();
+            } on RequestException catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(e.message),
+                ),
+              );
+            }
           }
         },
         child: Consumer<AddStoryProvider>(
