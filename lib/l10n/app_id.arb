@@ -1,4 +1,5 @@
 {
+  "@@locale": "ar",
   "login": "Masuk",
   "@login": {
     "description": "Menu login"

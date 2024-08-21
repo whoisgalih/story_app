@@ -10,10 +10,10 @@ class RegisterScreen extends StatefulWidget {
   final Function() onLogin;
 
   const RegisterScreen({
-    Key? key,
+    super.key,
     required this.onRegister,
     required this.onLogin,
-  }) : super(key: key);
+  });
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

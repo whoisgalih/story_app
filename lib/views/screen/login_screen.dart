@@ -11,10 +11,10 @@ class LoginScreen extends StatefulWidget {
   final Function() onRegister;
 
   const LoginScreen({
-    Key? key,
+    super.key,
     required this.onLogin,
     required this.onRegister,
-  }) : super(key: key);
+  });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();

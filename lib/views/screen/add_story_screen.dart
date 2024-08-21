@@ -155,7 +155,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
               addStoryProvider.setLoading(true);
               addStoryProvider.addStory();
               StoriesProvider storiesProvider = context.read<StoriesProvider>();
-              await storiesProvider.getStories();
+              await storiesProvider.refreshStories();
               addStoryProvider.setLoading(false);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

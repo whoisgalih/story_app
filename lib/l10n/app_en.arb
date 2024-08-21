@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "login": "Login",
   "email": "Email",
   "pleaseEnterYourEmail": "Please enter your email.",

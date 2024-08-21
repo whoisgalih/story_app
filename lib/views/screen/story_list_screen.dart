@@ -14,18 +14,18 @@ class StoryListScreen extends StatefulWidget {
   final Function() onAddStory;
 
   const StoryListScreen({
-    Key? key,
+    super.key,
     required this.onTapped,
     required this.onLogout,
     required this.onAddStory,
-  }) : super(key: key);
+  });
 
   @override
   State<StoryListScreen> createState() => _StoryListScreenState();
 }
 
 class _StoryListScreenState extends State<StoryListScreen> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {

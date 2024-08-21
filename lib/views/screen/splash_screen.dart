@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 /// todo 13: create SplashScreen
 class SplashScreen extends StatelessWidget {
+  // ignore: use_super_parameters
   const SplashScreen({
     Key? key,
   }) : super(key: key);
