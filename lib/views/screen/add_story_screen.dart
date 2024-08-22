@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/commons/request_exception_error.dart';
 import 'package:story_app/provider/add_story_provider.dart';
-import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/themes/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -150,25 +149,27 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
         onPressed: () async {
           if (addStoryProvider.addStoryGlobalKey.currentState!.validate()) {
             try {
-              // run validation
+              await addStoryProvider.addStory();
 
-              addStoryProvider.setLoading(true);
-              addStoryProvider.addStory();
-              StoriesProvider storiesProvider = context.read<StoriesProvider>();
-              await storiesProvider.refreshStories();
-              addStoryProvider.setLoading(false);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppLocalizations.of(context)!.storyAdded),
-                ),
-              );
+              // guard context is not null and mounted
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(AppLocalizations.of(context)!.storyAdded),
+                  ),
+                );
+              }
+
+              // get back
               widget.onAddStory();
             } on RequestException catch (e) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(e.message),
-                ),
-              );
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(e.message),
+                  ),
+                );
+              }
             }
           }
         },

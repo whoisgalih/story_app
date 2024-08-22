@@ -24,11 +24,6 @@ class AddStoryProvider extends ChangeNotifier {
   // toggle loading
   bool get isLoading => _isLoading;
 
-  void setLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
-
   void setImagePath(String? value) {
     imagePath = value;
     notifyListeners();
@@ -72,6 +67,9 @@ class AddStoryProvider extends ChangeNotifier {
     if (addStoryGlobalKey.currentState!.validate()) {
       addStoryGlobalKey.currentState!.save();
 
+      _isLoading = true;
+      notifyListeners();
+
       final story = Story(
         description: descriptionController.text,
         photoUrl: imagePath!,
@@ -81,6 +79,9 @@ class AddStoryProvider extends ChangeNotifier {
       final token = await AuthRepository.getToken();
 
       await storiesService.addStory(token, story);
+
+      _isLoading = false;
+      notifyListeners();
     }
   }
 }
