@@ -6,9 +6,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:story_app/commons/request_exception_error.dart';
 import 'package:story_app/provider/add_story_provider.dart';
-import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/themes/colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:story_app/l10n/app_localizations.dart';
+import 'package:story_app/views/widgets/add_map_widget.dart';
 
 class AddStoryScreen extends StatefulWidget {
   final Function() onAddStory;
@@ -24,9 +24,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
   Widget build(BuildContext context) {
     AddStoryProvider addStoryProvider = context.watch<AddStoryProvider>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addStory),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.addStory)),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -37,10 +35,13 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
               children: [
                 FormField<XFile>(
                   validator: (value) => addStoryProvider.imageValidator(
-                      mustBeSelected:
-                          AppLocalizations.of(context)!.imageMustBeSelected,
-                      mustBeLessThan1Mb:
-                          AppLocalizations.of(context)!.imageMustBeLessThan1Mb),
+                    mustBeSelected: AppLocalizations.of(
+                      context,
+                    )!.imageMustBeSelected,
+                    mustBeLessThan1Mb: AppLocalizations.of(
+                      context,
+                    )!.imageMustBeLessThan1Mb,
+                  ),
                   builder: (formFieldState) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,16 +57,11 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                           child: addStoryProvider.imagePath == null
                               ? const Align(
                                   alignment: Alignment.center,
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 100,
-                                  ),
+                                  child: Icon(Icons.image, size: 100),
                                 )
                               : _showImage(),
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 16),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -77,19 +73,19 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                                 child: InkWell(
                                   onTap: () => _onGalleryView(),
                                   customBorder: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                   child: Container(
                                     alignment: Alignment.center,
                                     padding: const EdgeInsets.all(32),
                                     child: Text(
-                                        AppLocalizations.of(context)!.gallery),
+                                      AppLocalizations.of(context)!.gallery,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 16,
-                            ),
+                            const SizedBox(width: 16),
                             Expanded(
                               child: Material(
                                 color: primaryColor[100],
@@ -97,12 +93,14 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                                 child: InkWell(
                                   onTap: () => _onCameraView(),
                                   customBorder: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                   child: Container(
                                     alignment: Alignment.center,
                                     padding: const EdgeInsets.all(32),
                                     child: Text(
-                                        AppLocalizations.of(context)!.camera),
+                                      AppLocalizations.of(context)!.camera,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -115,19 +113,18 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                             child: Text(
                               formFieldState.errorText!,
                               style: TextStyle(
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 13,
-                                  color: Colors.red[700],
-                                  height: 0.5),
+                                fontStyle: FontStyle.normal,
+                                fontSize: 13,
+                                color: Colors.red[700],
+                                height: 0.5,
+                              ),
                             ),
-                          )
+                          ),
                       ],
                     );
                   },
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const SizedBox(height: 16),
                 TextFormField(
                   controller: addStoryProvider.descriptionController,
                   keyboardType: TextInputType.multiline,
@@ -137,10 +134,13 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
                     hintText: AppLocalizations.of(context)!.description,
                   ),
                   validator: (value) => addStoryProvider.descriptionValidator(
-                    mustBeFilled:
-                        AppLocalizations.of(context)!.descriptionMustBeFilled,
+                    mustBeFilled: AppLocalizations.of(
+                      context,
+                    )!.descriptionMustBeFilled,
                   ),
                 ),
+                const SizedBox(height: 16),
+                _buildMap(),
               ],
             ),
           ),
@@ -150,25 +150,25 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
         onPressed: () async {
           if (addStoryProvider.addStoryGlobalKey.currentState!.validate()) {
             try {
-              // run validation
+              await addStoryProvider.addStory();
 
-              addStoryProvider.setLoading(true);
-              addStoryProvider.addStory();
-              StoriesProvider storiesProvider = context.read<StoriesProvider>();
-              await storiesProvider.refreshStories();
-              addStoryProvider.setLoading(false);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppLocalizations.of(context)!.storyAdded),
-                ),
-              );
+              // guard context is not null and mounted
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(AppLocalizations.of(context)!.storyAdded),
+                  ),
+                );
+              }
+
+              // get back
               widget.onAddStory();
             } on RequestException catch (e) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(e.message),
-                ),
-              );
+              if (context.mounted) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text(e.message)));
+              }
             }
           }
         },
@@ -192,9 +192,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
 
     final picker = ImagePicker();
 
-    final pickedFile = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       provider.setImageFile(pickedFile);
@@ -212,9 +210,7 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
 
     final picker = ImagePicker();
 
-    final pickedFile = await picker.pickImage(
-      source: ImageSource.camera,
-    );
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
       provider.setImageFile(pickedFile);
@@ -225,13 +221,11 @@ class _AddStoryScreenState extends State<AddStoryScreen> {
   Widget _showImage() {
     final imagePath = context.read<AddStoryProvider>().imagePath;
     return kIsWeb
-        ? Image.network(
-            imagePath.toString(),
-            fit: BoxFit.cover,
-          )
-        : Image.file(
-            File(imagePath.toString()),
-            fit: BoxFit.cover,
-          );
+        ? Image.network(imagePath.toString(), fit: BoxFit.cover)
+        : Image.file(File(imagePath.toString()), fit: BoxFit.cover);
+  }
+
+  Widget _buildMap() {
+    return AddMapWidget();
   }
 }

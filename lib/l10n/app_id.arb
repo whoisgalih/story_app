@@ -87,5 +87,9 @@
   "logout": "Keluar",
   "@logout": {
     "description": "Keluar"
+  },
+  "noLocationData": "Data lokasi tidak ditemukan",
+  "@noLocationData": {
+    "description": "Data lokasi tidak ditemukan"
   }
 }

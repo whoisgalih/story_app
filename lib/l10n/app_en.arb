@@ -21,5 +21,6 @@
   "imageMustBeSelected": "Image must be selected",
   "imageMustBeLessThan1Mb": "Image must be less than 1MB",
   "descriptionMustBeFilled": "Description must be filled",
-  "logout": "Logout"
+  "logout": "Logout",
+  "noLocationData": "No location data available"
 }

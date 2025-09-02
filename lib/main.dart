@@ -1,5 +1,5 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:story_app/l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,15 +55,9 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => StoriesProvider(
-            storiesService: storiesService,
-          ),
+          create: (context) => StoriesProvider(storiesService: storiesService),
         ),
-        ChangeNotifierProvider(
-          create: (context) => AuthProvider(
-            authService,
-          ),
-        ),
+        ChangeNotifierProvider(create: (context) => AuthProvider(authService)),
       ],
       child: MaterialApp(
         title: 'Story App',
@@ -73,10 +67,7 @@ class _MyAppState extends State<MyApp> {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const [
-          Locale('id', ''),
-          Locale('en', ''),
-        ],
+        supportedLocales: const [Locale('id', ''), Locale('en', '')],
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: primaryColor,
@@ -84,9 +75,7 @@ class _MyAppState extends State<MyApp> {
             brightness: Brightness.light,
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              foregroundColor: accentColor,
-            ),
+            style: ElevatedButton.styleFrom(foregroundColor: accentColor),
           ),
           scaffoldBackgroundColor: primaryColor[50],
           visualDensity: VisualDensity.adaptivePlatformDensity,

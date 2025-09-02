@@ -1,6 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:story_app/main.dart';
 import 'package:story_app/provider/add_story_provider.dart';
+import 'package:story_app/provider/stories_provider.dart';
 import 'package:story_app/provider/story_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +55,7 @@ class MyRouterDelegate extends RouterDelegate
     if (isLoggedIn == null) {
       historyStack = _splashStack;
     } else if (isLoggedIn == true) {
-      historyStack = _loggedInStack;
+      historyStack = _loggedInStack(context);
     } else {
       historyStack = _loggedOutStack;
     }
@@ -127,7 +128,7 @@ class MyRouterDelegate extends RouterDelegate
           ),
       ];
 
-  List<Page> get _loggedInStack => [
+  List<Page> _loggedInStack(BuildContext context) => [
         MaterialPage(
           key: const ValueKey("StoryListPage"),
           child: StoryListScreen(
@@ -168,8 +169,11 @@ class MyRouterDelegate extends RouterDelegate
                 storiesService: storiesService,
               ),
               child: AddStoryScreen(
-                onAddStory: () {
+                onAddStory: () async {
                   isAddStory = false;
+                  StoriesProvider storiesProvider =
+                      context.read<StoriesProvider>();
+                  await storiesProvider.refreshStories();
                   notifyListeners();
                 },
               ),
