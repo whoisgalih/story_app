@@ -1,0 +1,43 @@
+name: {{packageName}}
+description: {{appName.titleCase()}} - A Flutter story sharing application
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.5
+  http: ^1.1.0
+  shared_preferences: ^2.2.2
+  image_picker: ^1.0.4
+  geolocator: ^10.1.0
+  google_maps_flutter: ^2.5.0
+  {{#enableLocalization}}
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  {{/enableLocalization}}
+  {{#enableJsonAnnotation}}
+  json_annotation: ^4.8.1
+  {{/enableJsonAnnotation}}
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  {{#enableJsonAnnotation}}
+  build_runner: ^2.4.7
+  json_serializable: ^6.7.1
+  {{/enableJsonAnnotation}}
+
+flutter:
+  uses-material-design: true
+  {{#enableLocalization}}
+  generate: true
+  {{/enableLocalization}}
+  assets:
+    - assets/

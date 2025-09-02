@@ -1,0 +1,18 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    require_trailing_commas: true
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+
+analyzer:
+  exclude:
+    - bricks/**
+    - '**/*.g.dart'
+    - '**/*.freezed.dart'
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
