@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:geocoding/geocoding.dart' as geo;
+import 'package:location/location.dart';
+import 'package:provider/provider.dart';
+import 'package:story_app/provider/add_story_provider.dart';
+import 'package:story_app/views/widgets/placemark_widget.dart';
 
 class AddMapWidget extends StatefulWidget {
   const AddMapWidget({super.key});
@@ -11,6 +14,8 @@ class AddMapWidget extends StatefulWidget {
 }
 
 class _AddMapWidgetState extends State<AddMapWidget> {
+  // Map
+
   final dicodingOffice = const LatLng(-6.8957473, 107.6337669);
 
   late GoogleMapController mapController;
@@ -18,7 +23,7 @@ class _AddMapWidgetState extends State<AddMapWidget> {
 
   geo.Placemark? placemark;
 
-  void onMyLocationButtonPress() async {
+  void onMyLocationButtonPress(BuildContext context) async {
     final Location location = Location();
     late bool serviceEnabled;
     late PermissionStatus permissionGranted;
@@ -57,24 +62,36 @@ class _AddMapWidgetState extends State<AddMapWidget> {
       placemark = place;
     });
 
-    defineMarker(latLng, street, address);
+    defineMarker(latLng, street, address, context);
 
     mapController.animateCamera(CameraUpdate.newLatLng(latLng));
   }
 
-  void defineMarker(LatLng latLng, String street, String address) {
+  void defineMarker(
+    LatLng latLng,
+    String street,
+    String address,
+    BuildContext context,
+  ) {
     final marker = Marker(
       markerId: const MarkerId("source"),
       position: latLng,
       infoWindow: InfoWindow(title: street, snippet: address),
     );
+
+    final addStoryProvider = Provider.of<AddStoryProvider>(
+      context,
+      listen: false,
+    );
+    addStoryProvider.setLatLng(latLng);
+
     setState(() {
       markers.clear();
       markers.add(marker);
     });
   }
 
-  void onLongPressGoogleMap(LatLng latLng) async {
+  void onLongPressGoogleMap(LatLng latLng, BuildContext context) async {
     final info = await geo.placemarkFromCoordinates(
       latLng.latitude,
       latLng.longitude,
@@ -88,7 +105,7 @@ class _AddMapWidgetState extends State<AddMapWidget> {
       placemark = place;
     });
 
-    defineMarker(latLng, street, address);
+    defineMarker(latLng, street, address, context);
 
     mapController.animateCamera(CameraUpdate.newLatLng(latLng));
   }
@@ -121,13 +138,13 @@ class _AddMapWidgetState extends State<AddMapWidget> {
               setState(() {
                 placemark = place;
               });
-              defineMarker(dicodingOffice, street, address);
+              defineMarker(dicodingOffice, street, address, context);
               setState(() {
                 mapController = controller;
               });
             },
             onLongPress: (LatLng latLng) {
-              onLongPressGoogleMap(latLng);
+              onLongPressGoogleMap(latLng, context);
             },
             myLocationEnabled: true,
           ),
@@ -137,7 +154,7 @@ class _AddMapWidgetState extends State<AddMapWidget> {
             child: FloatingActionButton(
               child: const Icon(Icons.my_location),
               onPressed: () {
-                onMyLocationButtonPress();
+                onMyLocationButtonPress(context);
               },
             ),
           ),
@@ -150,48 +167,6 @@ class _AddMapWidgetState extends State<AddMapWidget> {
               left: 16,
               child: PlacemarkWidget(placemark: placemark!),
             ),
-        ],
-      ),
-    );
-  }
-}
-
-class PlacemarkWidget extends StatelessWidget {
-  const PlacemarkWidget({super.key, required this.placemark});
-  final geo.Placemark placemark;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      constraints: const BoxConstraints(maxWidth: 700),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(50)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            blurRadius: 20,
-            offset: Offset.zero,
-            color: Colors.grey.withOpacity(0.5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  placemark.street!,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Text(
-                  '${placemark.subLocality}, ${placemark.locality}, ${placemark.postalCode}, ${placemark.country}',
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );

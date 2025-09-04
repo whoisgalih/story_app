@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart' as geo;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
 import 'package:story_app/data/api/stories_service.dart';
 import 'package:story_app/data/db/auth_repository.dart';
 import 'package:story_app/model/story.dart';
@@ -16,10 +19,9 @@ class AddStoryProvider extends ChangeNotifier {
 
   String? imagePath;
   XFile? imageFile;
+  LatLng? latLng;
 
-  AddStoryProvider({
-    required this.storiesService,
-  });
+  AddStoryProvider({required this.storiesService});
 
   // toggle loading
   bool get isLoading => _isLoading;
@@ -31,6 +33,11 @@ class AddStoryProvider extends ChangeNotifier {
 
   void setImageFile(XFile? value) {
     imageFile = value;
+    notifyListeners();
+  }
+
+  void setLatLng(LatLng value) {
+    latLng = value;
     notifyListeners();
   }
 
@@ -52,9 +59,7 @@ class AddStoryProvider extends ChangeNotifier {
     return null;
   }
 
-  String? descriptionValidator({
-    required String mustBeFilled,
-  }) {
+  String? descriptionValidator({required String mustBeFilled}) {
     if (descriptionController.text.isEmpty) {
       return mustBeFilled;
     }

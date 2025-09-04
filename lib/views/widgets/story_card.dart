@@ -22,6 +22,27 @@ class StoryCard extends StatelessWidget {
             fit: BoxFit.cover,
             width: double.infinity,
             height: 200,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                width: double.infinity,
+                height: 200,
+                color: Colors.grey[300],
+                child: const Icon(
+                  Icons.broken_image,
+                  size: 64,
+                  color: Colors.grey,
+                ),
+              );
+            },
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Container(
+                width: double.infinity,
+                height: 200,
+                color: Colors.grey[200],
+                child: const Center(child: CircularProgressIndicator()),
+              );
+            },
           ),
           Container(
             width: double.infinity,
@@ -33,15 +54,11 @@ class StoryCard extends StatelessWidget {
                   story.name!,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  story.description,
-                ),
+                const SizedBox(height: 8),
+                Text(story.description),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
