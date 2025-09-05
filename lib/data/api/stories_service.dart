@@ -12,17 +12,11 @@ class StoriesService extends APIService {
 
   Future<List<Story>> getStories(String token, String page, String size) async {
     final http.Response response = await client.get(
-      Uri.https(
-        'story-api.dicoding.dev',
-        '/v1/stories',
-        {
-          'page': page,
-          'size': size,
-        },
-      ),
-      headers: {
-        HttpHeaders.authorizationHeader: 'Bearer $token',
-      },
+      Uri.https('story-api.dicoding.dev', '/v1/stories', {
+        'page': page,
+        'size': size,
+      }),
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
     );
 
     final Map<String, dynamic> responseJson = jsonDecode(response.body);
@@ -31,11 +25,9 @@ class StoriesService extends APIService {
       throw RequestException(responseJson['message'], response.statusCode);
     }
 
-    final List<Story> stories = responseJson['listStory'].map<Story>(
-      (story) {
-        return Story.fromMap(story);
-      },
-    ).toList();
+    final List<Story> stories = responseJson['listStory'].map<Story>((story) {
+      return Story.fromMap(story);
+    }).toList();
 
     return stories;
   }
@@ -43,9 +35,7 @@ class StoriesService extends APIService {
   Future<Story> getStoryById(String token, String id) async {
     final http.Response response = await client.get(
       Uri.parse('${APIService.baseUrl}/stories/$id'),
-      headers: {
-        HttpHeaders.authorizationHeader: 'Bearer $token',
-      },
+      headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
     );
 
     final Map<String, dynamic> responseJson = jsonDecode(response.body);
@@ -68,10 +58,15 @@ class StoriesService extends APIService {
     request.headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
 
     request.fields['description'] = story.description;
-    request.files.add(await http.MultipartFile.fromPath(
-      'photo',
-      story.photoUrl,
-    ));
+
+    if (story.lat != null && story.lon != null) {
+      request.fields['lat'] = story.lat!.toString();
+      request.fields['lon'] = story.lon!.toString();
+    }
+
+    request.files.add(
+      await http.MultipartFile.fromPath('photo', story.photoUrl),
+    );
 
     final http.StreamedResponse response = await client.send(request);
 

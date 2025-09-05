@@ -1,7 +1,0 @@
-{
-  "appName": "StoryApp",
-  "packageName": "story_app",
-  "isStateless": false,
-  "enableLocalization": true,
-  "enableJsonAnnotation": true
-}
