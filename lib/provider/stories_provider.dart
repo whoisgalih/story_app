@@ -46,7 +46,6 @@ class StoriesProvider extends ChangeNotifier {
     return true;
   }
 
-  // refresh stories
   Future<void> refreshStories() async {
     page = 1;
     stories = [];

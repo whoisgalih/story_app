@@ -41,7 +41,6 @@ final AuthService authService = AuthService(client: client);
 final StoriesService storiesService = StoriesService(client: client);
 
 class _MyAppState extends State<MyApp> {
-  /// todo 6: add variable for create instance
   late MyRouterDelegate myRouterDelegate;
 
   @override

@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// todo 3: create Auth Repository and
 /// add some method for auth process
 class AuthRepository {
   static const String tokenKey = "token";

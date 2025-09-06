@@ -16,7 +16,10 @@ class PlacemarkWidget extends StatelessWidget {
           BoxShadow(
             blurRadius: 20,
             offset: Offset.zero,
-            color: Colors.grey.withOpacity(0.5),
+            color: Color.alphaBlend(
+              const Color.fromRGBO(128, 128, 128, 0.5),
+              Colors.transparent,
+            ),
           ),
         ],
       ),

@@ -31,15 +31,13 @@ class _StoryListScreenState extends State<StoryListScreen> {
   void initState() {
     super.initState();
 
-    _scrollController.addListener(
-      () {
-        if (_scrollController.position.pixels >=
-                _scrollController.position.maxScrollExtent &&
-            context.read<StoriesProvider>().page != null) {
-          getStories();
-        }
-      },
-    );
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+              _scrollController.position.maxScrollExtent &&
+          context.read<StoriesProvider>().page != null) {
+        getStories();
+      }
+    });
 
     Future.microtask(() async => await getStories());
   }
@@ -48,11 +46,9 @@ class _StoryListScreenState extends State<StoryListScreen> {
     try {
       await context.read<StoriesProvider>().getStories();
     } on RequestException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.message),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message)));
     }
   }
 
@@ -61,11 +57,9 @@ class _StoryListScreenState extends State<StoryListScreen> {
     try {
       await context.read<StoriesProvider>().refreshStories();
     } on RequestException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -83,9 +77,7 @@ class _StoryListScreenState extends State<StoryListScreen> {
             },
             tooltip: AppLocalizations.of(context)!.logout,
             icon: authWatch.isLoadingLogout
-                ? const CircularProgressIndicator(
-                    color: Colors.white,
-                  )
+                ? const CircularProgressIndicator(color: Colors.white)
                 : const Icon(Icons.logout),
           ),
         ],
@@ -100,7 +92,8 @@ class _StoryListScreenState extends State<StoryListScreen> {
             child: ListView.builder(
               controller: _scrollController,
               physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: storiesProvider.stories.length +
+              itemCount:
+                  storiesProvider.stories.length +
                   (storiesProvider.page != null ? 1 : 0),
               itemBuilder: (context, index) {
                 if (index == storiesProvider.stories.length &&
@@ -116,9 +109,7 @@ class _StoryListScreenState extends State<StoryListScreen> {
                 return GestureDetector(
                   onTap: () =>
                       widget.onTapped(storiesProvider.stories[index].id!),
-                  child: StoryCard(
-                    story: storiesProvider.stories[index],
-                  ),
+                  child: StoryCard(story: storiesProvider.stories[index]),
                 );
               },
             ),
@@ -126,7 +117,6 @@ class _StoryListScreenState extends State<StoryListScreen> {
         },
       ),
 
-      /// todo 18: add FAB and update the UI when button is tapped.
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           widget.onAddStory();

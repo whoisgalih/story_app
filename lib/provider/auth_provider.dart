@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../model/user.dart';
 
-/// todo 5: create Auth Provider to handle auth process
 class AuthProvider extends ChangeNotifier {
   final AuthService authService;
 
@@ -17,7 +16,6 @@ class AuthProvider extends ChangeNotifier {
   bool isLoggedIn = false;
   bool isRegistered = false;
 
-  // Message
   String loginMessage = "";
   String registerMessage = "";
 

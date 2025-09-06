@@ -39,7 +39,6 @@ class AddStoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Validators
   String? imageValidator({
     required String mustBeSelected,
     required String mustBeLessThan1Mb,
@@ -48,7 +47,6 @@ class AddStoryProvider extends ChangeNotifier {
       return mustBeSelected;
     }
 
-    // validate image less than 1mb
     File imageFile = File(imagePath!);
     if (imageFile.lengthSync() > 1000000) {
       return mustBeLessThan1Mb;
@@ -65,7 +63,6 @@ class AddStoryProvider extends ChangeNotifier {
     return null;
   }
 
-  // API
   Future<void> addStory() async {
     if (addStoryGlobalKey.currentState!.validate()) {
       addStoryGlobalKey.currentState!.save();
