@@ -26,7 +26,7 @@ class StoriesService extends APIService {
     }
 
     final List<Story> stories = responseJson['listStory'].map<Story>((story) {
-      return Story.fromMap(story);
+      return Story.fromJson(story);
     }).toList();
 
     return stories;
@@ -44,7 +44,7 @@ class StoriesService extends APIService {
       throw RequestException(responseJson['message'], response.statusCode);
     }
 
-    final Story story = Story.fromMap(responseJson['story']);
+    final Story story = Story.fromJson(responseJson['story']);
 
     return story;
   }

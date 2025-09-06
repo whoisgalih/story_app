@@ -36,9 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.register),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.register)),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 300),
@@ -82,8 +80,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context)!
-                          .pleaseEnterYourPassword;
+                      return AppLocalizations.of(
+                        context,
+                      )!.pleaseEnterYourPassword;
                     }
                     return null;
                   },
@@ -94,25 +93,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     : ElevatedButton(
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            final scaffoldMessenger =
-                                ScaffoldMessenger.of(context);
-                            final User user = User.register(
+                            final scaffoldMessenger = ScaffoldMessenger.of(
+                              context,
+                            );
+                            final User user = User(
                               name: nameController.text,
                               email: emailController.text,
                               password: passwordController.text,
                             );
-                            AuthProvider authRead =
-                                context.read<AuthProvider>();
+                            AuthProvider authRead = context
+                                .read<AuthProvider>();
 
                             final result = await authRead.register(user);
                             if (result) widget.onRegister();
                             if (authRead.registerMessage.isNotEmpty) {
                               scaffoldMessenger.showSnackBar(
                                 SnackBar(
-                                  content: Text(authRead.registerMessage == ""
-                                      ? AppLocalizations.of(context)!
-                                          .registerSuccess
-                                      : authRead.registerMessage),
+                                  content: Text(
+                                    authRead.registerMessage == ""
+                                        ? AppLocalizations.of(
+                                            context,
+                                          )!.registerSuccess
+                                        : authRead.registerMessage,
+                                  ),
                                 ),
                               );
                             }
