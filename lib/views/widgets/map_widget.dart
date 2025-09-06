@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart' as geo;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:story_app/l10n/app_localizations.dart';
 import 'package:story_app/model/story.dart';
@@ -14,15 +15,38 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
   GoogleMapController? mapController;
-
-  // Default location (Dicoding office) as fallback
-  final defaultLocation = const LatLng(-6.8957473, 107.6337669);
+  String? street;
+  String? address;
 
   LatLng get storyLocation {
-    if (widget.story.lat != null && widget.story.lon != null) {
-      return LatLng(widget.story.lat!, widget.story.lon!);
-    }
-    return defaultLocation;
+    return LatLng(widget.story.lat!, widget.story.lon!);
+  }
+
+  Future<void> initInfoWindow() async {
+    final info = await geo.placemarkFromCoordinates(
+      widget.story.lat!,
+      widget.story.lon!,
+    );
+    final place = info[0];
+    setState(() {
+      street = place.street!;
+
+      List<String> addressList = [];
+      if (place.subLocality != null) {
+        addressList.add(place.subLocality!);
+      }
+      if (place.locality != null) {
+        addressList.add(place.locality!);
+      }
+      if (place.postalCode != null) {
+        addressList.add(place.postalCode!);
+      }
+      if (place.country != null) {
+        addressList.add(place.country!);
+      }
+
+      address = addressList.join(', ');
+    });
   }
 
   @override
@@ -31,6 +55,12 @@ class _MapWidgetState extends State<MapWidget> {
       mapController!.dispose();
     }
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initInfoWindow();
   }
 
   @override
@@ -77,12 +107,13 @@ class _MapWidgetState extends State<MapWidget> {
           Marker(
             markerId: const MarkerId('story_location'),
             position: storyLocation,
-            infoWindow: InfoWindow(
-              title:
-                  widget.story.name ??
-                  AppLocalizations.of(context)!.storyLocation,
-              snippet: 'Lat: ${widget.story.lat}, Lon: ${widget.story.lon}',
-            ),
+            // infoWindow: InfoWindow(
+            //   title:
+            //       widget.story.name ??
+            //       AppLocalizations.of(context)!.storyLocation,
+            //   snippet: 'Lat: ${widget.story.lat}, Lon: ${widget.story.lon}',
+            // ),
+            infoWindow: InfoWindow(title: street, snippet: address),
           ),
         },
       ),

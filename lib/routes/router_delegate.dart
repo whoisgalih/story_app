@@ -50,18 +50,11 @@ class MyRouterDelegate extends RouterDelegate
       key: navigatorKey,
 
       pages: historyStack,
-      onPopPage: (route, result) {
-        final didPop = route.didPop(result);
-        if (!didPop) {
-          return false;
-        }
-
+      onDidRemovePage: (page) {
         isRegister = false;
         selectedStory = null;
         isAddStory = false;
         notifyListeners();
-
-        return true;
       },
     );
   }
