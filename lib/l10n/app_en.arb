@@ -22,5 +22,6 @@
   "imageMustBeLessThan1Mb": "Image must be less than 1MB",
   "descriptionMustBeFilled": "Description must be filled",
   "logout": "Logout",
-  "noLocationData": "No location data available"
+  "noLocationData": "No location data available",
+  "storyLocation": "Story Location"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:story_app/l10n/app_localizations.dart';
 import 'package:story_app/model/story.dart';
 
 class MapWidget extends StatefulWidget {
@@ -50,7 +51,7 @@ class _MapWidgetState extends State<MapWidget> {
               Icon(Icons.location_off, size: 48, color: Colors.grey[600]),
               const SizedBox(height: 8),
               Text(
-                'No location data available',
+                AppLocalizations.of(context)!.noLocationData,
                 style: TextStyle(color: Colors.grey[600], fontSize: 16),
               ),
             ],
@@ -77,7 +78,9 @@ class _MapWidgetState extends State<MapWidget> {
             markerId: const MarkerId('story_location'),
             position: storyLocation,
             infoWindow: InfoWindow(
-              title: widget.story.name ?? 'Story Location',
+              title:
+                  widget.story.name ??
+                  AppLocalizations.of(context)!.storyLocation,
               snippet: 'Lat: ${widget.story.lat}, Lon: ${widget.story.lon}',
             ),
           ),

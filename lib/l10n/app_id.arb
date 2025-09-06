@@ -91,5 +91,9 @@
   "noLocationData": "Data lokasi tidak ditemukan",
   "@noLocationData": {
     "description": "Data lokasi tidak ditemukan"
+  },
+  "storyLocation": "Lokasi Cerita",
+  "@storyLocation": {
+    "description": "Lokasi Cerita"
   }
 }

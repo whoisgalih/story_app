@@ -62,8 +62,7 @@ import 'app_localizations_id.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,8 +70,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -84,8 +82,7 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -98,141 +95,152 @@ abstract class AppLocalizations {
     Locale('id')
   ];
 
-  /// Menu login
+  /// No description provided for @login.
   ///
-  /// In id, this message translates to:
-  /// **'Masuk'**
+  /// In en, this message translates to:
+  /// **'Login'**
   String get login;
 
-  /// Menu register
+  /// No description provided for @email.
   ///
-  /// In id, this message translates to:
-  /// **'Daftar'**
-  String get register;
-
-  /// Email
-  ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Email'**
   String get email;
 
-  /// Silakan masukkan email Anda.
+  /// No description provided for @pleaseEnterYourEmail.
   ///
-  /// In id, this message translates to:
-  /// **'Silakan masukkan email Anda.'**
+  /// In en, this message translates to:
+  /// **'Please enter your email.'**
   String get pleaseEnterYourEmail;
 
-  /// Kata Sandi
+  /// No description provided for @password.
   ///
-  /// In id, this message translates to:
-  /// **'Kata Sandi'**
+  /// In en, this message translates to:
+  /// **'Password'**
   String get password;
 
-  /// Silakan masukkan kata sandi Anda.
+  /// No description provided for @pleaseEnterYourPassword.
   ///
-  /// In id, this message translates to:
-  /// **'Silakan masukkan kata sandi Anda.'**
+  /// In en, this message translates to:
+  /// **'Please enter your password.'**
   String get pleaseEnterYourPassword;
 
-  /// Login berhasil
+  /// No description provided for @loginSuccess.
   ///
-  /// In id, this message translates to:
-  /// **'Login berhasil'**
+  /// In en, this message translates to:
+  /// **'Login success'**
   String get loginSuccess;
 
-  /// Nama
+  /// No description provided for @register.
   ///
-  /// In id, this message translates to:
-  /// **'Nama'**
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
   String get name;
 
-  /// Silakan masukkan nama Anda.
+  /// No description provided for @pleaseEnterYourName.
   ///
-  /// In id, this message translates to:
-  /// **'Silakan masukkan nama Anda.'**
+  /// In en, this message translates to:
+  /// **'Please enter your name.'**
   String get pleaseEnterYourName;
 
-  /// Daftar berhasil
+  /// No description provided for @registerSuccess.
   ///
-  /// In id, this message translates to:
-  /// **'Daftar berhasil'**
+  /// In en, this message translates to:
+  /// **'Register success'**
   String get registerSuccess;
 
-  /// Cerita
+  /// No description provided for @story.
   ///
-  /// In id, this message translates to:
-  /// **'Cerita'**
+  /// In en, this message translates to:
+  /// **'Story'**
   String get story;
 
-  /// Memuat...
+  /// No description provided for @loading.
   ///
-  /// In id, this message translates to:
-  /// **'Memuat...'**
+  /// In en, this message translates to:
+  /// **'Loading...'**
   String get loading;
 
-  /// Terjadi kesalahan
+  /// No description provided for @error.
   ///
-  /// In id, this message translates to:
-  /// **'Terjadi kesalahan'**
+  /// In en, this message translates to:
+  /// **'Error occurred'**
   String get error;
 
-  /// Tambah Cerita
+  /// No description provided for @addStory.
   ///
-  /// In id, this message translates to:
-  /// **'Tambah Cerita'**
+  /// In en, this message translates to:
+  /// **'Add Story'**
   String get addStory;
 
-  /// Galeri
+  /// No description provided for @gallery.
   ///
-  /// In id, this message translates to:
-  /// **'Galeri'**
+  /// In en, this message translates to:
+  /// **'Gallery'**
   String get gallery;
 
-  /// Kamera
+  /// No description provided for @camera.
   ///
-  /// In id, this message translates to:
-  /// **'Kamera'**
+  /// In en, this message translates to:
+  /// **'Camera'**
   String get camera;
 
-  /// Deskripsi
+  /// No description provided for @description.
   ///
-  /// In id, this message translates to:
-  /// **'Deskripsi'**
+  /// In en, this message translates to:
+  /// **'Description'**
   String get description;
 
-  /// Cerita ditambahkan
+  /// No description provided for @storyAdded.
   ///
-  /// In id, this message translates to:
-  /// **'Cerita ditambahkan'**
+  /// In en, this message translates to:
+  /// **'Story added'**
   String get storyAdded;
 
-  /// Gambar harus dipilih
+  /// No description provided for @imageMustBeSelected.
   ///
-  /// In id, this message translates to:
-  /// **'Gambar harus dipilih'**
+  /// In en, this message translates to:
+  /// **'Image must be selected'**
   String get imageMustBeSelected;
 
-  /// Gambar harus kurang dari 1MB
+  /// No description provided for @imageMustBeLessThan1Mb.
   ///
-  /// In id, this message translates to:
-  /// **'Gambar harus kurang dari 1MB'**
+  /// In en, this message translates to:
+  /// **'Image must be less than 1MB'**
   String get imageMustBeLessThan1Mb;
 
-  /// Deskripsi harus diisi
+  /// No description provided for @descriptionMustBeFilled.
   ///
-  /// In id, this message translates to:
-  /// **'Deskripsi harus diisi'**
+  /// In en, this message translates to:
+  /// **'Description must be filled'**
   String get descriptionMustBeFilled;
 
-  /// Keluar
+  /// No description provided for @logout.
   ///
-  /// In id, this message translates to:
-  /// **'Keluar'**
+  /// In en, this message translates to:
+  /// **'Logout'**
   String get logout;
+
+  /// No description provided for @noLocationData.
+  ///
+  /// In en, this message translates to:
+  /// **'No location data available'**
+  String get noLocationData;
+
+  /// No description provided for @storyLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Story Location'**
+  String get storyLocation;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -241,25 +249,25 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'id'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'id'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return AppLocalizationsEn();
-    case 'id':
-      return AppLocalizationsId();
+    case 'en': return AppLocalizationsEn();
+    case 'id': return AppLocalizationsId();
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

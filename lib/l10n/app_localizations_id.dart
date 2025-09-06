@@ -12,9 +12,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get login => 'Masuk';
 
   @override
-  String get register => 'Daftar';
-
-  @override
   String get email => 'Email';
 
   @override
@@ -28,6 +25,9 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get loginSuccess => 'Login berhasil';
+
+  @override
+  String get register => 'Daftar';
 
   @override
   String get name => 'Nama';
@@ -73,4 +73,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get logout => 'Keluar';
+
+  @override
+  String get noLocationData => 'Data lokasi tidak ditemukan';
+
+  @override
+  String get storyLocation => 'Lokasi Cerita';
 }
